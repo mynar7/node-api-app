@@ -100,31 +100,45 @@ function runTwitter() {
 }
 
 function runSpotify() {
-    inq.prompt({
+    inq.prompt([
+    {
         type: "input",
         name: "song",
         message: "Enter song",
         //default: "the sign ace of base"
-    }).then(x=>{
+    },
+    {
+        type: "input",
+        name: "results",
+        message: "How many results?",
+        default: 1,
+        validate: function(name) {
+            return !isNaN(parseInt(name));
+        }
+    }
+    ]).then(x=>{
         if(x.song === ''){
-            getSong("the sign ace of base");
+            getSong("the sign ace of base", x.results);
         } else {
-            getSong(x.song);
+            getSong(x.song, x.results);
         }
     });
 }
 
-function getSong(song) {
-    spot.search({ type: 'track', query: song, limit: '1'}, function(err, data) {
+function getSong(song, results) {
+    spot.search({ type: 'track', query: song, limit: results}, function(err, data) {
         if (err) {
             return console.log('Error occurred: ' + err);
         }
-        if(data.tracks.items[0]) {
-            console.log("Song Title: ", data.tracks.items[0].name);
-            console.log("Artist: ", data.tracks.items[0].artists[0].name);    
-            console.log("Album: ", data.tracks.items[0].album.name);
-            console.log("Release Date: ", data.tracks.items[0].album.release_date);
-            console.log("Preview URL: ", data.tracks.items[0].preview_url);
+        if(data.tracks.items) {
+            for(let i = 0; i < data.tracks.items.length; i++) {
+                console.log("  Song Title: ", data.tracks.items[i].name);
+                console.log("  Artist: ", data.tracks.items[i].artists[0].name);    
+                console.log("  Album: ", data.tracks.items[i].album.name);
+                console.log("  Release Date: ", data.tracks.items[i].album.release_date);
+                console.log("  Preview URL: ", data.tracks.items[i].preview_url);
+                console.log("-----------------------------------------------------------")                
+            }
         } else {
             console.log("Song not Found");
         }
