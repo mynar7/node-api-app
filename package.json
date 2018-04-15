@@ -19,6 +19,7 @@
   "homepage": "https://github.com/mynar7/node-api-app#readme",
   "dependencies": {
     "dotenv": "^5.0.1",
+    "inquirer": "^5.2.0",
     "node-spotify-api": "^1.0.7",
     "request": "^2.85.0",
     "twit": "^2.2.9"
