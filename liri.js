@@ -180,7 +180,7 @@ function omdb(movie) {
         if(error) {
             console.log("Error:", error)
         }
-        if (!error && response.statusCode === 200) {
+        if (JSON.parse(body).Title && response.statusCode === 200) {
             console.log("Title: ", JSON.parse(body).Title);
             console.log("Release Year: ", JSON.parse(body).Year);
             console.log("Ratings:");
@@ -190,7 +190,9 @@ function omdb(movie) {
             console.log("Country produced in: ", JSON.parse(body).Country);
             console.log("Language: ", JSON.parse(body).Language);
             console.log("Plot: ", JSON.parse(body).Plot);
-            console.log("Actors: ", JSON.parse(body).Actors);              
+            console.log("Actors: ", JSON.parse(body).Actors);
+        } else {
+            console.log("Movie not found");
         }
         //console.log(JSON.parse(body));
         main();
