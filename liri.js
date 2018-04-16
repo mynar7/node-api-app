@@ -2,6 +2,7 @@ var dotenv = require("dotenv").config();
 var keys = require('./keys.js');
 var inq = require('inquirer');
 var req = require('request');
+var fs = require('fs');
 var Twit = require('twit');
 var Spotify = require('node-spotify-api');
 var spot = new Spotify(keys.spotify);
@@ -12,7 +13,7 @@ function getTweets(name, num) {
     //var name = "supercoolguy162";
     twitty.get('statuses/user_timeline', { screen_name: name, count: num }, function(err, data, response) {
         if(err) {
-            return console.log(err);
+            console.log(err.message);
         }
         if(data) {
             for(let i = 0; i < data.length; i++) {
@@ -30,7 +31,7 @@ var mainPrompt = {
     type: 'list',
     name: 'choice',
     message: 'What can I do for you today?',
-    choices: ['Tweets', 'Spotify', 'Movies', 'Exit']
+    choices: ['Tweets', 'Spotify', 'Movies','Do what it says', 'Exit']
 }
 function main () {
     inq.prompt(mainPrompt).then(x => {
@@ -40,6 +41,8 @@ function main () {
             runSpotify();
         } else if(x.choice === 'Movies') {
             runOMDB();
+        } else if(x.choice === 'Do what it says') {
+            runFS();
         } else {
             return;
         }
@@ -191,6 +194,33 @@ function omdb(movie) {
         }
         //console.log(JSON.parse(body));
         main();
+    });
+}
+
+function runFS(){
+    fs.readFile("random.txt", "utf8", function(error, data) {
+        if(error) {
+            console.log(error);
+            main();            
+        } else {
+            let args = data.split(',');
+            //console.log(args);
+            switch(args[0]) {
+                case 'spotify-this-song':
+                    getSong(args[1], 1);
+                break;
+                case 'tweets':
+                    getTweets(args[1], 20);
+                break;
+                case 'movie':
+                    omdb(args[1]);
+                break;
+                default:
+                    console.log("invalid command");
+                    main();
+                break;
+            }
+        }
     });
 }
 
