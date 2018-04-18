@@ -1,4 +1,5 @@
 var dotenv = require("dotenv").config();
+var colors = require("colors");
 var keys = require('./keys.js');
 var inq = require('inquirer');
 var req = require('request');
@@ -17,9 +18,9 @@ function getTweets(name, num) {
         }
         if(data) {
             for(let i = 0; i < data.length; i++) {
-                console.log(data[i].user.screen_name);
+                console.log(data[i].user.screen_name .green);
+                console.log(colors.italic.cyan(data[i].text + '\n'));            
                 console.log(data[i].created_at);
-                console.log(data[i].text);            
             }
         }
         main();
@@ -140,7 +141,7 @@ function getSong(song, results) {
                 console.log("  Album: ", data.tracks.items[i].album.name);
                 console.log("  Release Date: ", data.tracks.items[i].album.release_date);
                 console.log("  Preview URL: ", data.tracks.items[i].preview_url);
-                console.log("-----------------------------------------------------------")                
+                console.log("  -----------------------------------------------------------" .red)                
             }
         } else {
             console.log("Song not Found");
