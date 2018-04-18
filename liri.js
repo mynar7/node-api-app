@@ -19,8 +19,8 @@ function getTweets(name, num) {
         if(data) {
             for(let i = 0; i < data.length; i++) {
                 console.log(data[i].user.screen_name .green);
-                console.log(colors.italic.cyan(data[i].text + '\n'));            
-                console.log(data[i].created_at);
+                console.log(colors.cyan(data[i].text));            
+                console.log(data[i].created_at + '\n');
             }
         }
         main();
@@ -136,11 +136,11 @@ function getSong(song, results) {
         }
         if(data.tracks.items) {
             for(let i = 0; i < data.tracks.items.length; i++) {
-                console.log("  Song Title: ", data.tracks.items[i].name);
-                console.log("  Artist: ", data.tracks.items[i].artists[0].name);    
+                console.log("  Song Title: ", data.tracks.items[i].name .cyan);
+                console.log("  Artist: ", data.tracks.items[i].artists[0].name .yellow);    
                 console.log("  Album: ", data.tracks.items[i].album.name);
                 console.log("  Release Date: ", data.tracks.items[i].album.release_date);
-                console.log("  Preview URL: ", data.tracks.items[i].preview_url);
+                console.log("  Preview URL: ", data.tracks.items[i].preview_url .underline);
                 console.log("  -----------------------------------------------------------" .red)                
             }
         } else {
@@ -182,15 +182,15 @@ function omdb(movie) {
             console.log("Error:", error)
         }
         if (JSON.parse(body).Title && response.statusCode === 200) {
-            console.log("Title: ", JSON.parse(body).Title);
+            console.log("Title: ", JSON.parse(body).Title .yellow);
             console.log("Release Year: ", JSON.parse(body).Year);
             console.log("Ratings:");
             for(let i = 0; i < JSON.parse(body).Ratings.length; i++) {
-                console.log('   ' + JSON.parse(body).Ratings[i].Source + ': ' + JSON.parse(body).Ratings[i].Value);
+                console.log('   ' + JSON.parse(body).Ratings[i].Source + ': ' + JSON.parse(body).Ratings[i].Value .green);
             }
             console.log("Country produced in: ", JSON.parse(body).Country);
             console.log("Language: ", JSON.parse(body).Language);
-            console.log("Plot: ", JSON.parse(body).Plot);
+            console.log("Plot: ", JSON.parse(body).Plot .cyan);
             console.log("Actors: ", JSON.parse(body).Actors);
         } else {
             console.log("Movie not found");
