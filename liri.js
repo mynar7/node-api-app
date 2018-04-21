@@ -182,16 +182,16 @@ function omdb(movie) {
             console.log("Error:", error)
         }
         if (JSON.parse(body).Title && response.statusCode === 200) {
-            console.log("Title: ", JSON.parse(body).Title .yellow);
-            console.log("Release Year: ", JSON.parse(body).Year);
-            console.log("Ratings:");
+            console.log("\nTitle: ".bold.grey, JSON.parse(body).Title .yellow);
+            console.log("Release Year: ".bold.grey, JSON.parse(body).Year .yellow);
+            console.log("Ratings:".bold.grey);
             for(let i = 0; i < JSON.parse(body).Ratings.length; i++) {
-                console.log('   ' + JSON.parse(body).Ratings[i].Source + ': ' + JSON.parse(body).Ratings[i].Value .green);
+                console.log('   ' + JSON.parse(body).Ratings[i].Source .cyan + ': ' + JSON.parse(body).Ratings[i].Value .green);
             }
-            console.log("Country produced in: ", JSON.parse(body).Country);
-            console.log("Language: ", JSON.parse(body).Language);
-            console.log("Plot: ", JSON.parse(body).Plot .cyan);
-            console.log("Actors: ", JSON.parse(body).Actors);
+            console.log("Country produced in: ".bold.grey, JSON.parse(body).Country);
+            console.log("Language: ".bold.grey, JSON.parse(body).Language);
+            console.log("Plot: ".bold.grey, JSON.parse(body).Plot .cyan);
+            console.log("Actors: ".bold.grey, JSON.parse(body).Actors + "\n");
         } else {
             console.log("Movie not found");
         }
