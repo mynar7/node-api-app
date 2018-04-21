@@ -136,12 +136,12 @@ function getSong(song, results) {
         }
         if(data.tracks.items) {
             for(let i = 0; i < data.tracks.items.length; i++) {
-                console.log("  Song Title: ", data.tracks.items[i].name .cyan);
-                console.log("  Artist: ", data.tracks.items[i].artists[0].name .yellow);    
-                console.log("  Album: ", data.tracks.items[i].album.name);
-                console.log("  Release Date: ", data.tracks.items[i].album.release_date);
-                console.log("  Preview URL: ", data.tracks.items[i].preview_url .underline);
-                console.log("  -----------------------------------------------------------" .red)                
+                console.log("\nSong Title: ".bold.grey, data.tracks.items[i].name .yellow);
+                console.log("Artist: ".bold.grey, data.tracks.items[i].artists[0].name .bold.cyan);    
+                console.log("Album: ".bold.grey, data.tracks.items[i].album.name .cyan);
+                console.log("Release Date: ".bold.grey, data.tracks.items[i].album.release_date);
+                console.log("Preview URL: ".bold.grey, data.tracks.items[i].preview_url .underline);
+                console.log("-----------------------------------------------------------\n" .red)                
             }
         } else {
             console.log("Song not Found");
