@@ -179,9 +179,10 @@ function omdb(movie) {
         * Actors in the movie.
         * */
         if(error) {
-            console.log("Error:", error)
+            return console.log("Error:", error)
         }
-        if (JSON.parse(body).Title && response.statusCode === 200) {
+        if (response.statusCode === 200 && JSON.parse(body).Title) {
+            
             console.log("\nTitle: ".bold.grey, JSON.parse(body).Title .yellow);
             console.log("Release Year: ".bold.grey, JSON.parse(body).Year .yellow);
             console.log("Ratings:".bold.grey);
@@ -192,8 +193,10 @@ function omdb(movie) {
             console.log("Language: ".bold.grey, JSON.parse(body).Language);
             console.log("Plot: ".bold.grey, JSON.parse(body).Plot .cyan);
             console.log("Actors: ".bold.grey, JSON.parse(body).Actors + "\n");
+        
         } else {
             console.log("Movie not found");
+            console.log(response.statusCode);
         }
         //console.log(JSON.parse(body));
         main();
